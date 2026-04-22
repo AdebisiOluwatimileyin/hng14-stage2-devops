@@ -38,3 +38,28 @@ docker compose ps
 ```
 
 A successful startup looks like:
+
+
+## Live Deployment
+http://54.174.111.132
+
+## Endpoints
+
+### Frontend (Port 3000)
+- `POST /submit` — Submit a new job
+- `GET /status/:id` — Get job status
+
+### API (Port 8000)
+- `GET /health` — Health check
+- `POST /jobs` — Create a new job
+- `GET /jobs/:id` — Get job status
+
+## CI/CD Pipeline
+
+GitHub Actions pipeline runs in this order:
+1. Lint — flake8, eslint, hadolint
+2. Test — pytest with coverage report
+3. Build — builds and pushes images to local registry
+4. Security Scan — Trivy scans all images
+5. Integration Test — brings full stack up and tests job flow
+6. Deploy — rolling update on push to main
